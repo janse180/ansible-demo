@@ -8,7 +8,7 @@
     - name: install apache2
       yum: name=httpd update_cache=yes state=latest
     - name: start apache
-      service: name=httpd state:started
+      service: name=httpd state=started
     - name: copy index template
       template: src=templates/index.html.j2 dest=/var/www/html/index.html 
 
