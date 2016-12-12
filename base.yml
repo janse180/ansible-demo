@@ -1,0 +1,38 @@
+---
+- hosts: all
+  vars_files:
+    - samba_join_creds.yml
+  vars:
+    # samba configuration
+    samba_security: ads
+    samba_realm: AD.UMN.EDU
+    samba_workgroup: AD
+    samba_idmap_config:
+      "*":
+        backend: rid
+        range: "1000000-10800000000"
+    samba_login_groups: 
+      - safl-it-all
+      - safl-filippo
+#    graylog_server: graylog.pgc.umn.edu
+    # variable for home directory mapping
+#    homedirs: 
+#      base: "superior.safl.umn.edu:/exports/safl_home"
+#      opts: "-fstype=nfs,vers=3,hard,intr"
+#      groups: 
+#        safl-it-all: 
+#          base: "10.2.128.2:/exports/home/"
+#          opts: "-fstype=nfs,vers=3,hard,intr"
+    sudo_users:
+      - { name: '%safl-it-seniorstaff', nopasswd: no }
+  sudo: yes
+  roles:
+    - common
+    - role: ntp
+      ntp_config_server: [128.101.101.101]
+    - sudo
+    - homedir
+    - samba_common
+    - samba_winbind
+#    - homedirmap
+#    - graylog_client
