@@ -4,7 +4,7 @@
 
   tasks:
     - name: install epel
-      yum: name=epel update_cache=yes state=latest
+      yum: name=epel-release update_cache=yes state=latest
     - name: install apache2
       yum: name=apache2 update_cache=yes state=latest
 
