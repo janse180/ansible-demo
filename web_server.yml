@@ -1,7 +1,8 @@
 ---
 - hosts: web_servers
   become: yes
-
+  vars:
+    web_page_header: TEST
   tasks:
     - name: install epel
       yum: name=epel-release update_cache=yes state=latest
